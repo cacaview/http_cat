@@ -1,2 +1,5 @@
 .idea/
 http_cat/__pycache__/
+build/
+dist/
+http_cat_utils.egg-info/

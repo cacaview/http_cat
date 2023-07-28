@@ -1,11 +1,17 @@
 from setuptools import setup
 
+# 从README.md文件中读取长描述
+with open("README.md", "r", encoding="utf-8") as f:
+    long_description = f.read()
+
 setup(
-    name="http_cat",
-    version="0.1",
+    name="http_cat_utils",
+    version="0.2",
     author="cacaview",
     author_email="cacaview@foxmail.com",
     description="A simple httpcat call function returns image data when called",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     license="MIT",
     packages=["http_cat"],
     install_requires=["requests"],
