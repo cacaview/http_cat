@@ -1,62 +1,34 @@
-# http_cats
+# httpcats-and-httpdog
 
-http_cats是一个Python包，用于根据输入的HTTP响应状态代码，返回对应的猫猫图片。您可以使用http_cats轻松地将猫咪图片与不同的HTTP状态代码关联起来。
+![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+`httpcats-and-httpdog` 是一个用于获取 HTTP 响应状态码对应图片的 Python 包。它可以让您根据 HTTP 响应状态代码获取来自 [httpcats](https://httpcats.com) 或 [httpdog](https://http.dog) 的图片数据。
 
 ## 安装
 
-您可以使用pip安装http_cats：
+您可以通过 `pip` 安装 `httpcats-and-httpdog` 包：
 
 ```
-pip install http_cats
+pip install httpcats-and-httpdog
 ```
 
 ## 使用方法
 
 ```python
-from http_cats import get_cat_image
+from httpcats_and_httpdog import get_image
 
-# 获取HTTP响应状态码为200的猫咪图片数据
+# 获取 httpcats 的图片数据
 status_code = "200"
-image_bytes = get_cat_image(status_code)
-print("图片数据类型：", type(image_bytes))
+image_bytes = get_image("httpcats", status_code)
+
+# 获取 httpdog 的图片数据
+status_code = "200"
+image_bytes = get_image("httpdog", status_code)
 ```
 
-## API文档
+`get_image` 函数接收三个参数：服务名称 (`httpcats` 或 `httpdog`)、HTTP 响应状态代码和图片格式（可选，默认为 `.jpg`）。它将返回相应图片数据的字节数据，您可以根据需要进一步处理或保存图片数据。
 
-### `get_cat_image(status_code, image_format=".jpg")`
+## 错误处理
 
-根据输入的HTTP响应状态代码和图片格式返回对应的猫咪图片数据。
-
-参数:
-
-- `status_code` (str): HTTP响应状态代码，如 "200"。
-- `image_format` (str): 图片格式，可以是 ".jpg", ".webp", ".jxl", ".avif" 或 ".json"。默认为 ".jpg"。
-
-返回:
-
-- `bytes`: 图片内容的字节数据。
-
-## 示例
-
-### 下载并保存图片
-
-```
-from http_cats import get_cat_image, download_cat_image
-
-status_code = "404"
-image_url = get_cat_image(status_code)
-save_path = "cat_image.jpg"
-# 下载并保存图片到本地
-download_cat_image(image_url, save_path)
-```
-
-### 使用不同格式的图片
-
-```
-from http_cats import get_cat_image
-
-status_code = "500"
-image_format = ".webp"
-image_bytes = get_cat_image(status_code, image_format)
-```
-
+在调用 `get_image` 函数时，如果输入的状态代码不是三位数字或下载图片失败，将会引发 `ValueError`。请确保输入正确的状态代码，并检查网络连接是否正常。

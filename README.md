@@ -1,64 +1,36 @@
-# http_cats
+# httpcats-and-httpdog
 
-http_cats is a Python package that allows you to get cat images based on the input HTTP response status codes. With http_cats, you can easily associate cat images with different HTTP status codes.
+![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-这里有中文版本：[readme-zh.md](readme-zh.md)
+这里有中文版本：[readme-zh](readme-zh.md)
+
+`httpcats-and-httpdog` is a Python package for retrieving images corresponding to HTTP response status codes. It allows you to get images from [httpcats](https://httpcats.com) or [httpdog](https://http.dog) based on the provided HTTP response status codes.
+
 ## Installation
 
-You can install http_cats using pip:
+You can install the `httpcats-and-httpdog` package via `pip`:
 
 ```
-pip install http-cats
+pip install httpcats-and-httpdog
 ```
 
 ## Usage
 
 ```python
-from http_cats import get_cat_image
+from httpcats_and_httpdog import get_image
 
-# Get cat image data for HTTP response status code 200
+# Get image data from httpcats
 status_code = "200"
-image_bytes = get_cat_image(status_code)
-print("Image data type:", type(image_bytes))
+image_bytes = get_image("httpcats", status_code)
+
+# Get image data from httpdog
+status_code = "200"
+image_bytes = get_image("httpdog", status_code)
 ```
 
-## API Documentation
+The `get_image` function takes three arguments: the service name (`httpcats` or `httpdog`), HTTP response status code, and image format (optional, default is `.jpg`). It returns the byte data of the corresponding image, which you can further process or save as needed.
 
-### `get_cat_image(status_code, image_format=".jpg")`
+## Error Handling
 
-Returns the cat image data corresponding to the input HTTP response status code and image format.
-
-Parameters:
-
-- `status_code` (str): The HTTP response status code, e.g., "200".
-- `image_format` (str): The image format, it can be ".jpg", ".webp", ".jxl", ".avif", or ".json". Default is ".jpg".
-
-Returns:
-
-- `bytes`: The byte data of the cat image.
-
-## Examples
-
-### Download and Save Image
-
-```
-from http_cats import get_cat_image, download_cat_image
-
-status_code = "404"
-image_url = get_cat_image(status_code)
-save_path = "cat_image.jpg"
-
-# Download and save the image locally
-download_cat_image(image_url, save_path)
-```
-
-### Using Different Image Formats
-
-```
-from http_cats import get_cat_image
-
-status_code = "500"
-image_format = ".webp"
-image_bytes = get_cat_image(status_code, image_format)
-```
-
+When calling the `get_image` function, it raises a `ValueError` if the input status code is not a three-digit number or if downloading the image fails. Please ensure to provide the correct status code and check that your network connection is working properly.
